@@ -1,0 +1,27 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+
+    <sys:String x:Key="aboutMe">About me</sys:String>
+    <sys:String x:Key="sourceCode">Source code</sys:String>
+    <sys:String x:Key="course">Windows programing course</sys:String>
+    <sys:String x:Key="teacher">Teacher: Tran Duy Quang</sys:String>
+    <sys:String x:Key="slogan">Name file your way!</sys:String>
+    <sys:String x:Key="start">Start</sys:String>
+    <sys:String x:Key="close">Close</sys:String>
+    <sys:String x:Key="minimize">Minimize</sys:String>
+    <sys:String x:Key="darkMode">Dark mode</sys:String>
+    <sys:String x:Key="language">Language</sys:String>
+
+    <sys:String x:Key="currentRules">Current rules</sys:String>
+    <sys:String x:Key="loadOldRules">Load old rules</sys:String>
+    <sys:String x:Key="chooseFile">Choose file</sys:String>
+    <sys:String x:Key="chooseFolder">Choose folder</sys:String>
+    <sys:String x:Key="folderName">Folder name</sys:String>
+    <sys:String x:Key="fileName">File name</sys:String>
+    <sys:String x:Key="preview">Preview</sys:String>
+    <sys:String x:Key="addARule">Add a rule</sys:String>
+    <sys:String x:Key="add">Add</sys:String>
+    <sys:String x:Key="renameFolder">Rename folder</sys:String>
+
+</ResourceDictionary>

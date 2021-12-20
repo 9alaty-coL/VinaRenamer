@@ -1,0 +1,5 @@
+C:\Users\asus\Desktop\VinaRenamer\MyRuleContract\bin\Debug\MyRuleContract.dll
+C:\Users\asus\Desktop\VinaRenamer\MyRuleContract\bin\Debug\MyRuleContract.pdb
+C:\Users\asus\Desktop\VinaRenamer\MyRuleContract\obj\Debug\MyRuleContract.csproj.CoreCompileInputs.cache
+C:\Users\asus\Desktop\VinaRenamer\MyRuleContract\obj\Debug\MyRuleContract.dll
+C:\Users\asus\Desktop\VinaRenamer\MyRuleContract\obj\Debug\MyRuleContract.pdb

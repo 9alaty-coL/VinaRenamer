@@ -1,5 +1,0 @@
-C:\Users\asus\Desktop\VinaRenamer\MyThreeLayerContract\bin\Debug\MyThreeLayerContract.dll
-C:\Users\asus\Desktop\VinaRenamer\MyThreeLayerContract\bin\Debug\MyThreeLayerContract.pdb
-C:\Users\asus\Desktop\VinaRenamer\MyThreeLayerContract\obj\Debug\MyThreeLayerContract.csproj.CoreCompileInputs.cache
-C:\Users\asus\Desktop\VinaRenamer\MyThreeLayerContract\obj\Debug\MyThreeLayerContract.dll
-C:\Users\asus\Desktop\VinaRenamer\MyThreeLayerContract\obj\Debug\MyThreeLayerContract.pdb

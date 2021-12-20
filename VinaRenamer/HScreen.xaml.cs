@@ -106,6 +106,76 @@ namespace VinaRenamer
             cmbGUIList.SelectedIndex = 0;
             //cmbBusList.ItemsSource = buses;
             //cmbDaoList.ItemsSource = daos;
+            if (File.Exists("./data/restore.txt"))
+            {
+                using (var reader = new StreamReader("./data/restore.txt"))
+                {
+                    int mode = 1;
+                    while (!reader.EndOfStream)
+                    {
+                        string line = reader.ReadLine();
+                        if (line == "rule")
+                        {
+                            mode = 1;
+                            continue;
+                        }
+                        else if (line == "file")
+                        {
+                            mode = 2;
+                            continue;
+                        }
+                        else if (line == "folder")
+                        {
+                            mode = 3;
+                            continue;
+                        }
+                        else if (line == "state")
+                        {
+                            mode = 4;
+                            continue;
+                        }
+                        else if (line == "")
+                            return;
+
+                        if (mode == 1)
+                        {
+                            RuleParserFactory parser = new RuleParserFactory();
+                            MyRules.Add(parser.parse(rules, line));
+                        }
+                        if (mode == 2)
+                        {
+                            FileName temp = new FileName()
+                            {
+                                origin = line.Substring(line.LastIndexOf("\\") + 1),
+                                path = line,
+                                newName = "",
+                            };
+                            originFName.Add(temp);
+                        }
+                        if (mode == 3)
+                        {
+                            FileName temp = new FileName()
+                            {
+                                origin = line.Substring(line.LastIndexOf("\\") + 1),
+                                path = line,
+                                newName = "",
+                            };
+                            originFolder.Add(temp);
+                        }
+                        if (mode == 4)
+                        {
+                            this.Height = Double.Parse(line);
+                            line = reader.ReadLine();
+                            this.Width = Double.Parse(line);
+                            line = reader.ReadLine();
+                            this.Left = Double.Parse(line);
+                            line = reader.ReadLine();
+                            this.Top = Double.Parse(line);
+                        }
+                    }
+                }
+            }
+            updateName();
         }
 
 
@@ -395,7 +465,17 @@ namespace VinaRenamer
 
         private void rename_click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result;
+            if (folderMode)
+            {
+                if (MyRules.Count() <= 0 || originFolder.Count() <= 0)
+                    return;
+            }
+            else
+            {
+                if (MyRules.Count() <= 0 || originFName.Count() <= 0)
+                    return;
+            }
+                MessageBoxResult result;
             result = MessageBox.Show("Bạn muốn lưu lại tập luật không?", "Question", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
@@ -425,7 +505,7 @@ namespace VinaRenamer
 
             if (folderMode)
             {
-                if (MyRules.Count() == 0 || originFolder.Count() == 0)
+                if (MyRules.Count() <= 0 || originFolder.Count() <= 0)
                     return;
 
                 int k = 1;
@@ -467,7 +547,7 @@ namespace VinaRenamer
             }
             else
             {
-                if (MyRules.Count() == 0 || originFName.Count() == 0)
+                if (MyRules.Count() <= 0 || originFName.Count() <= 0)
                     return;
 
                 int k = 1;
@@ -595,6 +675,69 @@ namespace VinaRenamer
         {
             int sl = originF.SelectedIndex;
             originFolder.RemoveAt(sl);
+        }
+
+        private void Window_Closing(object sender, CancelEventArgs e)
+        {
+            if(MyRules.Count() > 0 || originFName.Count() > 0 || originFolder.Count() > 0)
+            {
+                using (StreamWriter writetext = new StreamWriter("./data/restore.txt"))
+                {
+                    writetext.WriteLine("rule");
+                    foreach(var r in MyRules)
+                    {
+                        writetext.WriteLine(r.saveRule());
+                    }
+
+                    writetext.WriteLine("file");
+                    foreach(var f in originFName)
+                    {
+                        writetext.WriteLine(f.path);
+                    }
+
+                    writetext.WriteLine("folder");
+                    foreach (var f in originFolder)
+                    {
+                        writetext.WriteLine(f.path);
+                    }
+
+                    writetext.WriteLine("state");
+                    writetext.WriteLine(this.ActualHeight);
+                    writetext.WriteLine(this.ActualWidth);
+                    writetext.WriteLine(this.Left);
+                    writetext.WriteLine(this.Top);
+
+                }
+            }
+            else
+            {
+                using (StreamWriter writetext = new StreamWriter("./data/restore.txt"))
+                {
+                    writetext.WriteLine("state");
+                    writetext.WriteLine(this.ActualHeight);
+                    writetext.WriteLine(this.ActualWidth);
+                    writetext.WriteLine(this.Left);
+                    writetext.WriteLine(this.Top);
+                }
+
+            }
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void Reset_click(object sender, RoutedEventArgs e)
+        {
+            using (StreamWriter writetext = new StreamWriter("./data/restore.txt"))
+            {
+                writetext.WriteLine("");
+            }
+            MyRules.Clear();
+            originFName.Clear();
+            originFolder.Clear();
+            MessageBox.Show("Finished");
         }
     }
 }

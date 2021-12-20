@@ -51,16 +51,20 @@
                        Grid.Column="1"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Right" Margin="0,0,9,0"/>
-            <TextBlock Text="{DynamicResource aboutMe}"
+            <TextBlock Text="{DynamicResource aboutMe}" Cursor="Hand" MouseDown="TextBlock_MouseLeftButtonUp"
+                       
                        Foreground="{Binding textColor2}"
                        Grid.Column="3"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center"/>
-            <TextBlock Text="{DynamicResource sourceCode}"
+            <TextBlock Text="{DynamicResource sourceCode}" Cursor="Hand" MouseDown="TextBlock_MouseLeftButtonUp2"
                        Foreground="{Binding textColor2}"
                        Grid.Column="5"
                        VerticalAlignment="Center"
-                       HorizontalAlignment="Center"/>
+                       HorizontalAlignment="Center">
+            </TextBlock>
+            
+
             <Button Content="{DynamicResource close}"
                     Foreground="{Binding textColor1}"
                     FontWeight="Medium"

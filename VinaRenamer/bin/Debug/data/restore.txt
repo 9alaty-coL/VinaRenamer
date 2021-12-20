@@ -1,0 +1,18 @@
+rule
+Numerical 
+file
+C:\Users\asus\Desktop\a\)1( 321_1ko_2.txt
+C:\Users\asus\Desktop\a\)2( 321_2_1_1.txt
+C:\Users\asus\Desktop\a\)2( ypoC - _ 1 eliF weN_6_1ko_1.txt
+C:\Users\asus\Desktop\a\3_ok3_5_123 (7).txt
+C:\Users\asus\Desktop\a\4_ok3_newFile1_.txt
+C:\Users\asus\Desktop\a\5_ok5_123 (6).txt
+C:\Users\asus\Desktop\a\ypoC - _ 1 eliF weN_7_2.txt
+folder
+C:\Users\asus\Desktop\a
+C:\Users\asus\Desktop\DemoRnmfl
+state
+619.2
+1029.6
+274.4
+72

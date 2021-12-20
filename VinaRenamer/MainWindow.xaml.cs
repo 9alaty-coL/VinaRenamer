@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -165,6 +166,14 @@ namespace VinaRenamer
             mainScreen.Show();
         }
 
+        private void TextBlock_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://www.facebook.com/tanloc.tran.16");
+        }
+        private void TextBlock_MouseLeftButtonUp2(object sender, MouseButtonEventArgs e)
+        {
+            Process.Start("https://github.com/9alaty-coL/VinaRenamer");
+        }
     }
 }
 

@@ -8,6 +8,7 @@
         Title="VinaRenamer" Height="600" Width="1000"
         Loaded="Window_Loaded"
         Closed="Window_Closed"
+        Closing="Window_Closing"
         Background="{Binding color2}">
     <Grid>
         <Grid.RowDefinitions>
@@ -356,11 +357,12 @@
 
         <StackPanel Grid.Row="3" Grid.ColumnSpan="7" Grid.Column="0" Background="{Binding color1}"
                     Height="45" >
-                
 
 
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center"
                         Orientation="Horizontal" Height="45">
+                <Button x:Name="reset" Content="{DynamicResource reset}" VerticalAlignment="Center" Margin="0, 0, 50, 0"
+                        FontSize="14" Padding="5" Click="Reset_click"/>
                 <TextBlock Text="{DynamicResource duplicateSuffix}"
                                Foreground="{Binding textColor1}"
                                FontSize="14"

@@ -24,5 +24,7 @@
     <sys:String x:Key="add">Add</sys:String>
     <sys:String x:Key="renameFolder">Rename folder</sys:String>
     <sys:String x:Key="duplicateSuffix">Duplicate suffix</sys:String>
+    <sys:String x:Key="reset">Reset all</sys:String>
+
 
 </ResourceDictionary>

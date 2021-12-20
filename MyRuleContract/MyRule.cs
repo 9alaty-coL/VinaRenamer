@@ -9,7 +9,7 @@ using VinaRenamer;
 
 namespace MyRuleContract
 {
-    public abstract class MyRule: INotifyPropertyChanged
+    public abstract class MyRule
     {
         public abstract string Rename(string original);
         public abstract UserControl GetMainWindow(Dictionary<string, string> res, ColorTheme theme);
@@ -18,6 +18,5 @@ namespace MyRuleContract
         public abstract string saveRule();
         public abstract MyRule parseRule(string savedString);
         public abstract string getMagicWord();
-        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

@@ -65,6 +65,8 @@ namespace VinaRenamer
             this.DataContext = currentTheme;
             toggleListviewColor();
             folderM.Visibility = Visibility.Collapsed;
+
+            rules.Add(new Numerical(1));
             // load các dll
 
             //var buses = new BindingList<IBus>();
@@ -260,6 +262,7 @@ namespace VinaRenamer
         }
         public void updateName()
         {
+            MyRule config = new Numerical(1);
             foreach (var file in originFName)
             {
                 string temp = file.origin;
@@ -392,31 +395,130 @@ namespace VinaRenamer
 
         private void rename_click(object sender, RoutedEventArgs e)
         {
+            MessageBoxResult result;
+            result = MessageBox.Show("Bạn muốn lưu lại tập luật không?", "Question", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                string Name = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
+                using (StreamWriter writetext = new StreamWriter("./data/root.txt", true))
+                {
+                    writetext.WriteLine(Name + " | " + MyRules.Count());
+                }
+                using (StreamWriter writetext2 = new StreamWriter("./data/" + Name + ".txt"))
+                {
+                    foreach (MyRule i in MyRules)
+                    {
+                        //writetext2.WriteLine(Name + " | " + MyRules.Count());
+                        writetext2.WriteLine(i.saveRule());
+                    }
+                }
+                MessageBox.Show("Rename successfully!");
+            }
+            else if (result == MessageBoxResult.No)
+            {
+                MessageBox.Show("Rename successfully!");
+            }
+            else if (result == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+
             if (folderMode)
             {
                 if (MyRules.Count() == 0 || originFolder.Count() == 0)
                     return;
 
+                int k = 1;
+
+                for (int i = 0; i < originFolder.Count(); i++)
+                {
+                    try
+                    {
+                        if (!Directory.Exists(originFolder[i].path))
+                        {
+                            MessageBox.Show("You have added 1 folder multiple times\nSystem will rename the first one.");
+                            continue;
+                        }
+                        Directory.Move(originFolder[i].path, originFolder[i].path.Substring(0, originFolder[i].path.LastIndexOf("\\") + 1) + originFolder[i].newName);
+                    }
+                    catch
+                    {
+                        while (true)
+                        {
+                            try
+                            {
+                                Directory.Move(originFolder[i].path, originFolder[i].path.Substring(0, originFolder[i].path.LastIndexOf("\\") + 1) + originFolder[i].newName + $" {duplicate.Text}({k})" );
+                                k++;
+                                break;
+                            }
+                            catch
+                            {
+                                k++;
+                                continue;
+                            }
+                        }
+                        MessageBox.Show($"folder {originFolder[i].path} will change to {originFolder[i].path.Substring(0, originFolder[i].path.LastIndexOf("\\") + 1) + originFolder[i].newName + $" {duplicate.Text}({k - 1})"}", "Duplicated", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    }
+                }
+
+                originFName.Clear();
+                originFolder.Clear();
+                MyRules.Clear();
             }
             else
             {
                 if (MyRules.Count() == 0 || originFName.Count() == 0)
                     return;
 
-                int i = 1;
+                int k = 1;
 
-                foreach (var f in originFName)
+                for (int i = 0; i < originFName.Count(); i++)
                 {
                     try
                     {
-                        File.Move(f.path, f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName);
+                        if (!File.Exists(originFName[i].path))
+                        {
+                            MessageBox.Show("You have added 1 file multiple times\nSystem will rename the first one.");
+                            continue;
+                        }
+                        File.Move(originFName[i].path, originFName[i].path.Substring(0, originFName[i].path.LastIndexOf("\\") + 1) + originFName[i].newName);
                     }
                     catch
                     {
-                        MessageBox.Show($"file {f.path} will change to {f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName.Substring(0, f.newName.LastIndexOf(".")) + $" {duplicate.Text}({i})"}" + f.newName.Substring(f.newName.LastIndexOf(".")), "Duplicated",MessageBoxButton.OK, MessageBoxImage.Warning);
-                        File.Move(f.path, f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName.Substring(0, f.newName.LastIndexOf(".")) + $" {duplicate.Text}({i})" + f.newName.Substring(f.newName.LastIndexOf(".")));
+                        while (true)
+                        {
+                            try
+                            {
+                                File.Move(originFName[i].path, originFName[i].path.Substring(0, originFName[i].path.LastIndexOf("\\") + 1) + originFName[i].newName.Substring(0, originFName[i].newName.LastIndexOf(".")) + $" {duplicate.Text}({k})" + originFName[i].newName.Substring(originFName[i].newName.LastIndexOf(".")));
+                                k++;
+                                break;
+                            }
+                            catch
+                            {
+                                k++;
+                                continue;
+                            }
+                        }
+                        MessageBox.Show($"file {originFName[i].path} will change to {originFName[i].path.Substring(0, originFName[i].path.LastIndexOf("\\") + 1) + originFName[i].newName.Substring(0, originFName[i].newName.LastIndexOf(".")) + $" {duplicate.Text}({k-1})"}" + originFName[i].newName.Substring(originFName[i].newName.LastIndexOf(".")), "Duplicated", MessageBoxButton.OK, MessageBoxImage.Warning);
                     }
                 }
+
+                originFolder.Clear();
+                originFName.Clear();
+                MyRules.Clear();
+
+                //foreach (var f in originFName)
+                //{
+                //    try
+                //    {
+                //        File.Move(f.path, f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName);
+                //    }
+                //    catch
+                //    {
+                //        MessageBox.Show($"file {f.path} will change to {f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName.Substring(0, f.newName.LastIndexOf(".")) + $" {duplicate.Text}({i})"}" + f.newName.Substring(f.newName.LastIndexOf(".")), "Duplicated",MessageBoxButton.OK, MessageBoxImage.Warning);
+                //        File.Move(f.path, f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName.Substring(0, f.newName.LastIndexOf(".")) + $" {duplicate.Text}({i})" + f.newName.Substring(f.newName.LastIndexOf(".")));
+                //    }
+                //}
             }
 
             
@@ -436,38 +538,7 @@ namespace VinaRenamer
             //{
             //    writetext.WriteLine("writing in text file");
             //}
-            MessageBoxResult result;
-            result= MessageBox.Show("Bạn muốn lưu lại tập luật không?", "Question", MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
-            if(result == MessageBoxResult.Yes)
-            {
-                string Name = DateTime.Now.ToString("yyyy_MM_dd_HH_mm_ss");
-                using (StreamWriter writetext = new StreamWriter("./data/root.txt", true))
-                {
-                    writetext.WriteLine(Name + " | " + MyRules.Count());
-                }
-                using (StreamWriter writetext2 = new StreamWriter("./data/" + Name + ".txt"))
-                {
-                    foreach(MyRule i in MyRules)
-                    {
-                        //writetext2.WriteLine(Name + " | " + MyRules.Count());
-                        writetext2.WriteLine(i.saveRule());
-                    }
-                }
-                originFName.Clear();
-                MyRules.Clear();
-                MessageBox.Show("Rename successfully!");
-            }
-            else if (result == MessageBoxResult.No)
-            {
-                originFName.Clear();
-                MyRules.Clear();
-                MessageBox.Show("Rename successfully!");
 
-            }
-            else if (result == MessageBoxResult.Cancel)
-            {
-
-            }
         }
 
         private void Delete_rule_Click(object sender, RoutedEventArgs e)

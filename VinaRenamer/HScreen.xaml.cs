@@ -403,10 +403,20 @@ namespace VinaRenamer
                 if (MyRules.Count() == 0 || originFName.Count() == 0)
                     return;
 
-                //foreach(var f in originFName)
-                //{
-                //    File.Move(f.path, f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName);
-                //}
+                int i = 1;
+
+                foreach (var f in originFName)
+                {
+                    try
+                    {
+                        File.Move(f.path, f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName);
+                    }
+                    catch
+                    {
+                        MessageBox.Show($"file {f.path} will change to {f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName.Substring(0, f.newName.LastIndexOf(".")) + $" {duplicate.Text}({i})"}" + f.newName.Substring(f.newName.LastIndexOf(".")), "Duplicated",MessageBoxButton.OK, MessageBoxImage.Warning);
+                        File.Move(f.path, f.path.Substring(0, f.path.LastIndexOf("\\") + 1) + f.newName.Substring(0, f.newName.LastIndexOf(".")) + $" {duplicate.Text}({i})" + f.newName.Substring(f.newName.LastIndexOf(".")));
+                    }
+                }
             }
 
             

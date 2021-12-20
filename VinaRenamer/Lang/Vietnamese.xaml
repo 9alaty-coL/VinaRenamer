@@ -23,6 +23,8 @@
     <sys:String x:Key="addARule">Thêm luật</sys:String>
     <sys:String x:Key="add">Thêm</sys:String>
     <sys:String x:Key="renameFolder">Đổi tên thư mục</sys:String>
+    <sys:String x:Key="duplicateSuffix">Hậu tố trùng lặp</sys:String>
+
 
 
 

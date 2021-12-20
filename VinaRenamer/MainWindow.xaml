@@ -216,6 +216,8 @@
                     Height="35">
             <StackPanel HorizontalAlignment="Right" VerticalAlignment="Center"
                         Orientation="Horizontal">
+
+                
                 <TextBlock Text="{DynamicResource darkMode}"
                                Grid.Row="2"
                                Grid.Column="0"

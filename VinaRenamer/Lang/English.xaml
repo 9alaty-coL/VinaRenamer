@@ -23,5 +23,6 @@
     <sys:String x:Key="addARule">Add a rule</sys:String>
     <sys:String x:Key="add">Add</sys:String>
     <sys:String x:Key="renameFolder">Rename folder</sys:String>
+    <sys:String x:Key="duplicateSuffix">Duplicate suffix</sys:String>
 
 </ResourceDictionary>

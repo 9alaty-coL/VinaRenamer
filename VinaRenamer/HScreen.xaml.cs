@@ -52,6 +52,11 @@ namespace VinaRenamer
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            if (!Directory.Exists("./data"))
+            {
+                Directory.CreateDirectory("./data");
+            }
+            
             origin.ItemsSource = originFName;
             preview.ItemsSource = originFName;
             rule.ItemsSource = MyRules;

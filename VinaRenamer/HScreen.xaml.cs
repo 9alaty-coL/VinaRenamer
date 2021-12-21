@@ -440,6 +440,10 @@ namespace VinaRenamer
             //{
             //    Console.WriteLine("Executing finally block.");
             //}
+            if (!File.Exists("data/root.txt"))
+            {
+                return;
+            }
             Dictionary<string,string> myDic = new Dictionary<string,string>();
             myDic["filename"] = "";
             var load = new LoadRules(currentTheme, myDic);
